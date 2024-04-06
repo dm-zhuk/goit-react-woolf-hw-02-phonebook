@@ -1,94 +1,89 @@
-# Model pentru un proiect React
+Книга контактів Напиши застосунок зберігання контактів телефонної книги.
 
-Acest proiect a fost creat cu ajutorul
-[Create React App](https://github.com/facebook/create-react-app). Pentru prezentări
-și configurarea de funcții suplimentare
-[consultă documentația](https://facebook.github.io/create-react-app/docs/getting-started).
+Крок 1 Застосунок повинен складатися з форми і списку контактів. На поточному
+кроці реалізуй додавання імені контакту та відображення списку контактів.
+Застосунок не повинен зберігати контакти між різними сесіями (оновлення
+сторінки).
 
-## Crearea unui repository în baza modelului
+Використовуйте цю розмітку інпуту з вбудованою валідацією для імені контакту.
 
-Utilizează acest repository al organizației GoIT ca model pentru crearea unui repository
-pentru proiectul tău. Pentru a face acest lucru, dă click pe "Use this template" și selectează opțiunea
-`Create a new repository`, după cum se prezintă în imagine.
+<input
+  type="text"
+  name="name"
+  pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+  title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+  required
+/>
 
-![Creating repo from a template step 1](./assets/template-step-1.png)
+Стан, що зберігається в батьківському компоненті <App>, обов'язково повинен бути
+наступного вигляду, додавати нові властивості не можна.
 
-Următorul pas va deschide pagina de creare a unui nou repository. Completează câmpul
-pentru numele acestuia, asigură-te că repository-ul este public, apoi dă click pe `Create repository from template`.
+state = { contacts: [], name: '' }
 
-![Creating repo from a template step 2](./assets/template-step-2.png)
+Кожен контакт повинен бути об'єктом з властивостями name та id. Для генерації
+ідентифікаторів використовуй будь-який відповідний пакет, наприклад nanoid.
+Після завершення цього кроку, застосунок повинен виглядати приблизно так.
 
-Odată ce repository-ul a fost creat, trebuie să accesezi setările repository-ului creat în fila `Settings > Actions > General`, după cum se prezintă în imagine.
+component preview Крок 2 Розшир функціонал застосунку, дозволивши користувачам
+додавати номери телефонів. Для цього додай <input type="tel"> у форму і
+властивість для зберігання його значення в стані.
 
-![Settings GitHub Actions permissions step 1](./assets/gh-actions-perm-1.png)
+state = { contacts: [], name: '', number: '' }
 
-După ce ai derulat până la sfârșitul paginii, în secțiunea `Workflow permissions`, selectează `Read and write permissions`, (Permisiuni de citire și scriere) și bifează caseta. Acest lucru
-este necesar pentru a automatiza procesul de lansare a proiectului.
+Використовуй цю розмітку інпуту з вбудованою валідацією для номеру контакту.
 
-![Settings GitHub Actions permissions step 2](./assets/gh-actions-perm-2.png)
+<input
+  type="tel"
+  name="number"
+  pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+  title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+  required
+/>
 
-Avei acum un repository personal de proiecte, cu o structură de fișiere și foldere.
+Після завершення цього кроку, застосунок повинен виглядати приблизно так.
 
-Lucrează apoi cu acesta așa cum ai face-o cu orice alt repository personal,
-clonează-l pe computerul tău, scrie cod, confirmă-l și încarcă-l pe
-GitHub.
+component preview Крок 3 Додай поле пошуку, яке можна використовувати для
+фільтрації списку контактів за ім'ям.
 
-## Pregătirea pentru muncă
+Поле пошуку – це інпут без форми, значення якого записується у стан
+(контрольований елемент). Логіка фільтрації повинна бути нечутливою до регістру.
+state = { contacts: [], filter: '', name: '', number: '' }
 
-1. Asigură-te că ai versiunea LTS a Node.js instalată pe computerul personal.
-   [Descarcă și instalează](https://nodejs.org/en/) dacă este necesar.
-2. Instalează dependențele de bază ale proiectului cu comanda `npm install`.
-3. Pornește modul de dezvoltare utilizând comanda `npm start`.
-4. Accesează [http://localhost:3000](http://localhost:3000) în browser-ul tău.
-   Această pagină se va reîncărca automat după salvarea modificărilor în fișierele proiectului.
+component preview Коли ми працюємо над новим функціоналом, буває зручно жорстко
+закодувати деякі дані у стан. Це позбавить необхідності вручну вводити дані в
+інтерфейсі для тестування роботи нового функціоналу. Наприклад, можна
+використовувати такий початковий стан.
 
-## Deploy
+state = { contacts: [ {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
+{id: 'id-2', name: 'Hermione Kline', number: '443-89-12'}, {id: 'id-3', name:
+'Eden Clements', number: '645-17-79'}, {id: 'id-4', name: 'Annie Copeland',
+number: '227-91-26'}, ], filter: '', name: '', number: '' }
 
-Versiunea de producție a proiectului va trece automat prin procesul de linting, va fi asamblată și implementată pe GitHub Pages, în ramura `gh-pages`, de fiecare dată când ramura `main` este actualizată. De exemplu, după un push direct sau o cerere de pull-request acceptată. 
+Крок 4 Якщо твій застосунок реалізований в одному компоненті <App>, виконай
+рефакторинг, виділивши відповідні частини в окремі компоненти. У стані
+кореневого компонента <App> залишаться тільки властивості contacts і filter.
 
-Pentru a face acest lucru, trebuie să editeezi câmpul "homepage" din fișierul package.json, înlocuind "your_username" și "your_repo_name" cu detaliile tale, apoi să trimiți aceste modificări pe GitHub.
+state = { contacts: [], filter: '' }
 
-json
-"homepage": "https://your_username.github.io/your_repo_name/"
+Достатньо виділити чотири компоненти: форма додавання контактів, список
+контактів, елемент списку контактів та фільтр пошуку.
 
-În continuare, mergi la setările repository-ului GitHub (`Settings` > `Pages`) și setează distribuirea versiunii de producție a fișierelor în folderul `/root` al ramurii `gh-pages`, dacă acest lucru nu a fost făcut în mod automat.
+Після рефакторингу кореневий компонент застосунку виглядатиме так.
 
-![GitHub Pages settings](./assets/repo-settings.png)
+<div>
+  <h1>Phonebook</h1>
+  <ContactForm ... />
 
-### Deployment status
+  <h2>Contacts</h2>
+  <Filter ... />
+  <ContactList ... />
+</div>
 
-Starea de implementare a celui mai recent commit este afișat printr-o iconiță lângă ID-ului acestuia.
+Крок 5 Заборони користувачеві можливість додавати контакти, імена яких вже
+присутні у телефонній книзі. При спробі виконати таку дію виведи alert із
+попередженням.
 
-- **Galben** - proiectul este în curs de asamblare și de implementare.
-- **Verde** - implementarea a fost finalizată cu succes.
-- **Roșu** - a apărut o eroare în timpul procesului de linting, asamblării sau implementării.
+component preview Крок 6 Розшир функціонал застосунку, дозволивши користувачеві
+видаляти раніше збережені контакти.
 
-Pentru a obține informații mai detaliate despre starea implementării, poți da click pe iconița corespunzătoare și apoi accesează link-ul "Details" din fereastra pop-up care se deschide.
-
-![Deployment status](./assets/deploy-status.png)
-
-### Pagina live
-
-După un anumit interval de timp, de obicei câteva minute, poți vizualiza pagina live la adresa indicată în proprietatea "homepage" editată. De exemplu, iată un link către versiunea live pentru acest repository:
-[https://goitacademy.github.io/react-homework-template](https://goitacademy.github.io/react-homework-template).
-
-Dacă se deschide o pagină goală, asigură-te că în fila "Console" nu există erori legate de căi greșite către fișierele CSS și JS ale proiectului (**Eroare 404**). Cel mai probabil, valoarea proprietății "homepage" din fișierul package.json este incorectă.
-
-### Rutarea
-
-Dacă aplicația utilizează biblioteca react-router-dom pentru rutare,
-trebuie să configurezi suplimentar componenta `<BrowserRouter>`, trecând în prop-ul "basename" numele exact al repository-ului tău. Bara oblică la începutul șirului este obligatorie.
-
-jsx
-<BrowserRouter basename="/your_repo_name">
-  <App />
-</BrowserRouter>
-
-
-## Cum funcționează
-
-![How it works](./assets/how-it-works.png)
-
-1. După fiecare "push" în ramura `main` a repository-ului GitHub, se va crea un fișier special script (GitHub Action) din fișierul `.github/workflows/deploy.yml`.
-2. Toate fișierele din repository sunt copiate pe server, unde proiectul este inițializat, este efectuat linting-ul și asamblarea înainte de implementare.
-3. Dacă toți pașii sunt finalizați cu succes, versiunea asamblată în producție a fișierelor proiectului este trimisă în ramura `gh-pages`. În caz contrar, în jurnalul (log) de execuție al scriptului vor fi indicate problemele întâlnite.
+component preview
