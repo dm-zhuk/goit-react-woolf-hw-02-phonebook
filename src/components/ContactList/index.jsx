@@ -14,7 +14,7 @@ export const OnDeleteButton = styled.button`
   border-radius: 4px;
   border: none;
   padding: 4px 16px;
-  background-color: rgb(183, 183, 185);
+  background-color: rgb(215, 215, 255);
   font-weight: bold;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
